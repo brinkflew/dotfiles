@@ -1,0 +1,1 @@
+./devicons2/icons.py
