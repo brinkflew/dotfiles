@@ -1,0 +1,15 @@
+[colors]
+background = #282a34
+foreground = #F9FAF9
+alert = #ff7777
+accent = #875A7B
+secondary = #c1f5db
+dimmed = #3c414d
+
+workspaces = #B04A4F
+
+accent1 = #c1f5db
+accent2 = #9ddcbc
+accent3 = #875A7B
+accent4 = #4b9872
+accent5 = #36815c

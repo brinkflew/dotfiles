@@ -1,0 +1,317 @@
+[colors]
+include-file = ~/.config/polybar/colors
+
+[bar/main]
+enable-ipc = true
+monitor = ${env:MONITOR:}
+width = 100%
+height = 36
+bottom = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 5
+
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = SourceCodePro:size=8;2                                                         # T1
+font-1 = Font Awesome 5 Pro,Font Awesome 5 Pro Regular:style=Regular:size=8;2           # T2
+font-2 = Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular:size=12;3    # T3
+font-3 = Font Awesome 5 Pro,Font Awesome 5 Pro Solid:style=Solid:size=8;2               # T4
+font-4 = Font Awesome 5 Pro,Font Awesome 5 Pro Solid:style=Solid:size=11;3              # T5
+font-5 = SauceCodePro Nerd Font:style=Regular:size=12;3                                 # T6
+font-6 = SauceCodePro Nerd Font:style=Regular:size=15;4                                 # T7
+font-7 = Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular:size=17;4    # T8
+
+fixed-center = true
+
+modules-left = i3 i3/mode
+modules-center = spotify spotify/previous spotify/playpause spotify/next
+modules-right = battery volume backlight wifi date
+
+[module/date]
+type = internal/date
+date = %H:%M:%S
+date-alt = %d/%m/%Y
+
+format = "%{B#3c414d}%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9} %{F#875A7B}%{B#3c414d}%{T7}%{T-}%{F-} <label>  "
+format-overline = #282a34
+format-underline = #282a34
+
+[module/wifi]
+type = internal/network
+interface = wlo1
+interval = 1.0
+ping-interval = 10
+
+format-connected = "%{A1:~/.config/rofi/scripts/network.sh &:}%{B#3c414d}%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9}<ramp-signal> %{F#875A7B}%{B#3c414d}%{T7}%{T-}%{F-} <label-connected> %{A-}"
+label-connected = %essid%
+
+format-disconnected = "%{A1:~/.config/rofi/scripts/network.sh &:}%{B#3c414d}%{F#ff7777}%{T7}%{B#ff7777}%{T5}%{F#3c414d} %{F#ff7777}%{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label-disconnected> %{A-}"
+label-disconnected = Disconnected
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+
+format-connected-overline = #282a34
+format-connected-underline = #282a34
+format-disconnected-overline = #282a34
+format-disconnected-underline = #282a34
+
+format-connected-padding = 0
+format-disconnected-padding = 0
+
+[module/volume]
+type = internal/pulseaudio
+interval = 5
+use-ui-max = false
+
+format-volume = "<ramp-volume> %{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label-volume> "
+format-muted = "%{B#3c414d}%{F#FF7777}%{T7}%{B#FF7777}%{T5}%{F#F9FAF9} %{F#FF7777}%{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label-muted> "
+label-volume = %percentage% %
+label-muted = Muted
+
+ramp-volume-0 = "%{B#3c414d}%{F#FF7777}%{T7}%{B#FF7777}%{T5}%{F#F9FAF9}%{F#FF7777}"
+ramp-volume-1 = "%{B#3c414d}%{F#e99479}%{T7}%{B#e99479}%{T5}%{F#F9FAF9}%{F#e99479}"
+ramp-volume-2 = "%{B#3c414d}%{F#c3c57d}%{T7}%{B#c3c57d}%{T5}%{F#F9FAF9}%{F#c3c57d}"
+ramp-volume-3 = "%{B#3c414d}%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9}%{F#875A7B}"
+
+format-volume-overline = #282a34
+format-volume-underline = #282a34
+format-muted-overline = #282a34
+format-muted-underline = #282a34
+
+format-volume-padding = 0
+format-muted-padding = 0
+
+[module/backlight]
+type = internal/backlight
+format = "<ramp> %{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label> "
+label = "%percentage% %"
+
+card = intel_backlight
+
+enable-scroll = true
+
+ramp-0 = "%{B#3c414d}%{F#FF7777}%{T7}%{B#FF7777}%{T5}%{F#F9FAF9}%{F#FF7777}"
+ramp-1 = "%{B#3c414d}%{F#e99479}%{T7}%{B#e99479}%{T5}%{F#F9FAF9}%{F#e99479}"
+ramp-2 = "%{B#3c414d}%{F#c3c57d}%{T7}%{B#c3c57d}%{T5}%{F#F9FAF9}%{F#c3c57d}"
+ramp-3 = "%{B#3c414d}%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9}%{F#875A7B}"
+
+format-padding = 0
+
+format-underline = #282a34
+format-overline = #282a34
+
+[module/battery]
+type = internal/battery
+full-at = 98
+
+format-charging = "%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9}<animation-charging> %{F#875A7B}%{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label-charging> "
+format-discharging = "<ramp-capacity> %{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label-discharging> "
+format-full = "%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9}<ramp-capacity> %{F#875A7B}%{B#3c414d}%{T7}%{T-}%{F-}%{B#3c414d} <label-full> "
+
+label-charging = %percentage% %
+label-discharging = %percentage% %
+
+ramp-capacity-0 = "%{F#FF7777}%{T7}%{B#FF7777}%{T5}%{F#F9FAF9}%{F#FF7777}"
+ramp-capacity-1 = "%{F#e99479}%{T7}%{B#e99479}%{T5}%{F#F9FAF9}%{F#e99479}"
+ramp-capacity-2 = "%{F#c3c57d}%{T7}%{B#c3c57d}%{T5}%{F#F9FAF9}%{F#c3c57d}"
+ramp-capacity-3 = "%{F#9ddcbc}%{T7}%{B#9ddcbc}%{T5}%{F#F9FAF9}%{F#9ddcbc}"
+ramp-capacity-4 = "%{F#875A7B}%{T7}%{B#875A7B}%{T5}%{F#F9FAF9}%{F#875A7B}"
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-framerate = 1000
+
+format-charging-overline = #282a34
+format-charging-underline = #282a34
+format-discharging-overline = #282a34
+format-discharging-underline = #282a34
+format-full-overline = #282a34
+format-full-underline = #282a34
+
+format-charging-padding = 0
+format-discharging-padding = 0
+format-full-padding = 0
+
+[module/powermenu]
+type = custom/script
+format = "<label>"
+exec = echo "%{B#36815c}%{F#F9FAF9}  %{T8}%{T-}%{F#36815c}%{B#3c414d}%{T7}%{T-}%{F-} System%{F#3c414d}%{B-}%{T7}%{T-}"
+
+click-left = ~/.config/rofi/bin/menu_powermenu.sh
+
+format-padding = 0
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+
+; Use fuzzy (partial) matching on labels when assigning 
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces 
+; containing 'code' in the label
+; Default: false
+fuzzy-match = true
+
+ws-icon-0 = "1:Terminal;%{T5}%{T-}"
+ws-icon-1 = "2:VSCode;%{T5}%{T-}"
+ws-icon-2 = "3:Chrome;%{T3}%{T-}"
+ws-icon-3 = "4:Discord;%{T3}%{T-}"
+ws-icon-4 = "5:Hangouts;%{T5}%{T-}"
+ws-icon-5 = "6:Gmail;%{T5}%{T-}"
+ws-icon-6 = "7:Spotify;%{T3}%{T-}"
+ws-icon-7 = "8:Calendar;%{T5}%{T-}"
+ws-icon-8 = "9:Odoo;%{T5}%{T-}"
+ws-icon-9 = "10"
+ws-icon-default = "%{T5}%{T-}"
+
+label-dimmed-underline = ${root.background}
+
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = " <label-state>"
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-focused = "%{F#875A7B}%{T7}%{B#875A7B}%{T-}%{F#F9FAF9}%icon%%{F#875A7B}%{B#3c414d}%{T7}%{T-}%{F-} %name%%{F#3c414d}%{B-}%{T7}%{T-}%{F-}"
+label-focused-padding = 0
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-unfocused = "%{F#3c414d}%{T7}%{B#3c414d}%{T-}%{F-}%icon%%{F-} %name%%{F#3c414d}%{B-}%{T7}%{T-}%{F-}"
+label-unfocused-padding = 0
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-visible = "%{F#f9faf9}%{T7}%{B#f9faf9}%{T-}%{F#3c414d}%icon%%{F#f9faf9}%{B#3c414d}%{T7}%{T-}%{F-} %name%%{F#3c414d}%{B-}%{T7}%{T-}%{F-}"
+label-visible-padding = 0
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-urgent = "%{F#00A09D}%{T7}%{B#00A09D}%{T-}%{F-}%{T5}%{F#00A09D}%{B#3c414d}%{T7}%{T-}%{F-} %name%%{F#3c414d}%{B-}%{T7}%{T-}%{F-}"
+label-urgent-padding = 0
+
+; Separator in between workspaces
+label-separator = " "
+label-separator-padding = 0
+
+format-underline = #282a34
+format-overline = #282a34
+format-padding = 1
+
+[module/i3/mode]
+type = internal/i3
+
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = <label-mode>
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = "%{F#ff7777}%{T7}%{B#ff7777}%{T-}%{F-}%{T5}%{F#ff7777}%{B#3c414d}%{T7}%{T-}%{F-} %mode%%{F#3c414d}%{B-}%{T7}%{T-}%{F-}"
+label-mode-padding = 0
+label-mode-foreground = #f9faf9
+
+format-underline = #282a34
+format-overline = #282a34
+format-padding = 2
+
+[module/spotify]
+type = custom/script
+interval = 1
+format = "%{F#3c414d}%{T7}%{B#3c414d}%{T-}%{F#1db954}%{T3}%{T-}%{F-} <label> "
+exec = python3 $HOME/.config/polybar/scripts/spotify/metadata.py
+
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+format-padding = 0
+
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify -x"
+
+click-left = i3-msg '[class="Spotify"] focus'
+
+[module/spotify/previous]
+type = custom/script
+interval = 86400
+format = "%{B#3c414d}%{F#1db954}%{T7}%{B#1db954}%{F#3c414d}%{T4}<label>%{T-} "
+
+; Previous song icon
+exec = echo ""
+
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify -x"
+
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+format-padding = 0
+
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+
+[module/spotify/next]
+type = custom/script
+interval = 86400
+format = "%{B#1db954}%{F#3c414d}%{T4}<label>%{F#1db954}%{B-}%{T7}%{T-}"
+
+; Next song icon
+exec = echo ""
+
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify -x"
+
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+format-padding = 0
+
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+[module/spotify/playpause]
+type = custom/script
+interval = 0.5
+format = "%{B#1db954}%{F#3c414d}%{T4}<label>%{T-} "
+
+exec = "if [ $(python3 $HOME/.config/polybar/scripts/spotify/playing.py) == '1' ]; then echo ''; else echo ''; fi"
+
+; Check if spotify is running before displaying the icon
+exec-if = "pgrep spotify -x"
+
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+format-padding = 0
+
+click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+
+; vim:ft=dosini
